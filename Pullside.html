@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pullside - Gestor de Prompts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #2196F3;
+            font-weight: 600;
+        }
+
+        .header-subtitle {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background-color: white;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-primary {
+            background-color: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+
+        .btn-primary:hover {
+            background-color: #1976D2;
+            border-color: #1976D2;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: #666;
+        }
+
+        .empty-state h2 {
+            margin-bottom: 1rem;
+            color: #2196F3;
+        }
+
+        .empty-state p {
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .prompt-card {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prompt-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .prompt-card:hover .prompt-actions {
+            opacity: 1;
+        }
+
+        .prompt-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .prompt-text {
+            font-size: 0.8rem;
+            color: #666;
+            flex: 1;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .prompt-actions {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .action-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 4px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2196F3;
+        }
+
+        .form-control.textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.9rem;
+            z-index: 1001;
+            animation: slideIn 0.15s ease, fadeOut 0.15s ease 2.35s forwards;
+        }
+
+        .toast-success {
+            background-color: #4CAF50;
+        }
+
+        .toast-error {
+            background-color: #f44336;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .prompts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                width: 95%;
+                margin: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Pullside</h1>
+            <div class="header-subtitle">© 2025 Raúl García-Calzada</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="openModal(-1)">
+                <span>+</span> Nuevo
+            </button>
+            <button class="btn" onclick="document.getElementById('loadFile').click()">
+                📂 Cargar
+            </button>
+            <button class="btn" onclick="document.getElementById('mergeFile').click()">
+                📥 Añadir
+            </button>
+            <button class="btn" onclick="saveConfig()">
+                💾 Guardar
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="empty-state" id="emptyState">
+            <h2>Bienvenido a Pullside</h2>
+            <p>Gestiona tus prompts reutilizables para IA de forma sencilla y profesional.</p>
+            <button class="btn btn-primary" onclick="openModal(-1)">Crear tu primer prompt</button>
+        </div>
+        <div class="prompts-grid" id="promptsGrid" style="display: none;"></div>
+    </div>
+
+    <input type="file" id="loadFile" accept=".json" style="display: none;" onchange="loadConfig(event, false)">
+    <input type="file" id="mergeFile" accept=".json" style="display: none;" onchange="loadConfig(event, true)">
+
+    <script>
+        let buttons = [];
+        let currentEditIndex = -1;
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function render() {
+            const grid = document.getElementById('promptsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (buttons.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'flex';
+            } else {
+                grid.style.display = 'grid';
+                emptyState.style.display = 'none';
+                
+                grid.innerHTML = '';
+                buttons.forEach((button, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'prompt-card';
+                    card.onclick = () => copyToClipboard(button.text);
+                    
+                    card.innerHTML = `
+                        <div class="prompt-name">${escapeHtml(button.name)}</div>
+                        <div class="prompt-text">${escapeHtml(button.text.substring(0, 100))}${button.text.length > 100 ? '...' : ''}</div>
+                        <div class="prompt-actions">
+                            <button class="action-btn" onclick="openModal(${index}); event.stopPropagation()">✏️</button>
+                            <button class="action-btn" onclick="deletePrompt(${index}); event.stopPropagation()">🗑️</button>
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        function openModal(index = -1) {
+            currentEditIndex = index;
+            const isEdit = index !== -1;
+            const button = isEdit ? buttons[index] : { name: '', text: '' };
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.id = 'modal';
+            
+            modal.innerHTML = `
+                <div class="modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title">${isEdit ? 'Editar Prompt' : 'Nuevo Prompt'}</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="promptName">Nombre del Prompt</label>
+                        <input type="text" id="promptName" class="form-control" value="${escapeHtml(button.name)}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="promptText">Contenido del Prompt</label>
+                        <textarea id="promptText" class="form-control textarea" required>${escapeHtml(button.text)}</textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn" onclick="closeModal()">Cancelar</button>
+                        <button class="btn btn-primary" onclick="savePrompt()">Guardar</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Focus en el campo de nombre
+            document.getElementById('promptName').focus();
+            
+            // Cerrar con ESC
+            document.addEventListener('keydown', handleEscKey);
+        }
+
+        function handleEscKey(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            if (modal) {
+                modal.remove();
+                document.removeEventListener('keydown', handleEscKey);
+            }
+        }
+
+        function savePrompt() {
+            const name = document.getElementById('promptName').value.trim();
+            const text = document.getElementById('promptText').value.trim();
+            
+            if (!name || !text) {
+                showToast('Por favor, completa todos los campos', 'error');
+                return;
+            }
+            
+            const button = {
+                id: currentEditIndex === -1 ? Date.now().toString() : buttons[currentEditIndex].id,
+                name: name,
+                text: text,
+                aiIcons: []
+            };
+            
+            if (currentEditIndex === -1) {
+                buttons.push(button);
+                showToast('Prompt creado exitosamente', 'success');
+            } else {
+                buttons[currentEditIndex] = button;
+                showToast('Prompt actualizado exitosamente', 'success');
+            }
+            
+            closeModal();
+            render();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Prompt copiado al portapapeles', 'success');
+            }).catch(err => {
+                showToast('Error al copiar al portapapeles', 'error');
+                console.error('Error al copiar:', err);
+            });
+        }
+
+        function saveConfig() {
+            const config = {
+                buttons: buttons,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(config, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pullside-config-${Date.now()}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            showToast('Configuración guardada exitosamente', 'success');
+        }
+
+        function loadConfig(event, merge = false) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const config = JSON.parse(e.target.result);
+                    
+                    // Validar estructura
+                    if (!config.buttons || !Array.isArray(config.buttons) || !config.timestamp) {
+                        throw new Error('Formato de archivo inválido');
+                    }
+                    
+                    // Validar cada botón
+                    for (const button of config.buttons) {
+                        if (!button.id || !button.name || !button.text) {
+                            throw new Error('Botón inválido en el archivo');
+                        }
+                    }
+                    
+                    if (merge) {
+                        // Fusionar sin duplicados
+                        const existingIds = new Set(buttons.map(b => b.id));
+                        const newButtons = config.buttons.filter(b => !existingIds.has(b.id));
+                        buttons = [...buttons, ...newButtons];
+                        showToast(`Añadidos ${newButtons.length} prompts nuevos`, 'success');
+                    } else {
+                        buttons = config.buttons;
+                        showToast('Configuración cargada exitosamente', 'success');
+                    }
+                    
+                    render();
+                } catch (error) {
+                    showToast('Error al cargar el archivo: ' + error.message, 'error');
+                    console.error('Error al cargar:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function deletePrompt(index) {
+            if (confirm('¿Estás seguro de que deseas eliminar este prompt?')) {
+                buttons.splice(index, 1);
+                showToast('Prompt eliminado exitosamente', 'success');
+                render();
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2500);
+        }
+
+        // Cerrar modal al hacer click fuera
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('modal');
+            if (modal && event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Inicializar
+        render();
+    </script>
+</body>
+</html>
