@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pullside: Gestor de Prompts</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-..." crossorigin="anonymous">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Pullside</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Características</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tech-stack">Tecnologías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-to-use">Cómo Usar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#deployment">Despliegue</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="hero-section text-center text-white d-flex align-items-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold">Pullside: Gestor de Prompts Reutilizables para IA</h1>
+            <p class="lead mt-3">Organiza y accede rápidamente a tus prompts de IA con esta herramienta ligera y eficiente.</p>
+            <a href="https://github.com/profegarcia-oss/pullside.git" class="btn btn-primary btn-lg mt-4">Ver en GitHub</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Características Principales</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box p-4 border rounded shadow-sm">
+                        <i class="fas fa-list-check fa-3x mb-3 text-primary"></i>
+                        <h3>Gestión Completa de Prompts (CRUD)</h3>
+                        <p>Crea, edita, elimina y visualiza tus prompts de forma intuitiva.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box p-4 border rounded shadow-sm">
+                        <i class="fas fa-copy fa-3x mb-3 text-primary"></i>
+                        <h3>Copia Rápida al Portapapeles</h3>
+                        <p>Un clic para copiar el contenido de cualquier prompt al portapapeles.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box p-4 border rounded shadow-sm">
+                        <i class="fas fa-save fa-3x mb-3 text-primary"></i>
+                        <h3>Persistencia y Portabilidad de Datos</h3>
+                        <p>Guarda, carga y fusiona tus configuraciones de prompts en archivos JSON.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box p-4 border rounded shadow-sm">
+                        <i class="fas fa-desktop fa-3x mb-3 text-primary"></i>
+                        <h3>Interfaz de Usuario Intuitiva</h3>
+                        <p>Diseño minimalista y responsive con notificaciones instantáneas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Tecnologías Utilizadas</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="tech-box p-4 border rounded shadow-sm">
+                        <h4 class="text-primary">Frontend</h4>
+                        <ul>
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>JavaScript (Vanilla JS)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section id="how-to-use" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Cómo Usar Pullside</h2>
+            <p class="lead text-center mb-4">Pullside es una aplicación de un solo archivo, muy fácil de usar:</p>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">1. Descargar el archivo</h4>
+                            <p>Descarga el archivo <code>Pullside.html</code> a tu ordenador.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">2. Abrir en el navegador</h4>
+                            <p>Simplemente abre el archivo <code>Pullside.html</code> con tu navegador web preferido.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 class="text-center mt-5 mb-4">Funcionalidades en la Interfaz:</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-plus-circle text-primary me-2"></i> <code>+ Nuevo</code>: Abre un modal para crear un nuevo prompt.</li>
+                        <li class="mb-2"><i class="fas fa-folder-open text-primary me-2"></i> <code>📂 Cargar</code>: Carga un archivo <code>.json</code> de configuración de prompts, reemplazando los actuales.</li>
+                        <li class="mb-2"><i class="fas fa-file-import text-primary me-2"></i> <code>📥 Añadir</code>: Carga un archivo <code>.json</code> de configuración de prompts, fusionándolos con los actuales.</li>
+                        <li class="mb-2"><i class="fas fa-save text-primary me-2"></i> <code>💾 Guardar</code>: Guarda la configuración actual de prompts en un archivo <code>.json</code>.</li>
+                        <li class="mb-2"><i class="fas fa-edit text-primary me-2"></i> <code>✏️</code> (Editar): Edita un prompt existente.</li>
+                        <li class="mb-2"><i class="fas fa-trash-alt text-primary me-2"></i> <code>🗑️</code> (Eliminar): Elimina un prompt existente.</li>
+                        <li class="mb-2"><i class="fas fa-hand-pointer text-primary me-2"></i> <code>Clic en tarjeta</code>: Copia el contenido del prompt al portapapeles.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deployment Section -->
+    <section id="deployment" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Despliegue (GitHub Pages)</h2>
+            <p class="lead text-center mb-4">Pullside es ideal para ser desplegada en GitHub Pages debido a su naturaleza de aplicación de un solo archivo.</p>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">1. Sube el archivo</h4>
+                            <p>Sube el archivo <code>Pullside.html</code> a la raíz de tu repositorio de GitHub.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">2. Configura GitHub Pages</h4>
+                            <p>En la configuración de tu repositorio, ve a "Pages", selecciona la rama <code>main</code> y la carpeta <code>/ (root)</code> como fuente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Contacto</h2>
+            <p class="lead">Para preguntas o sugerencias, no dudes en contactar al autor.</p>
+            <a href="https://github.com/profegarcia-oss" class="btn btn-outline-light btn-lg"><i class="fab fa-github me-2"></i>Visitar Perfil de GitHub</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white-50 py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 Pullside. Desarrollado por <a href="https://github.com/profegarcia-oss" class="text-white-50">Raúl García-Calzada</a>.</p>
+            <p>Licencia MIT.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

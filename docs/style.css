@@ -1,0 +1,184 @@
+/* General Body Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5; /* Lighter background for Pullside */
+}
+
+/* Navbar Customization */
+.navbar {
+    background-color: #ffffff !important; /* White navbar for Pullside */
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.navbar-brand {
+    font-weight: 700;
+    color: #2196F3 !important; /* Pullside primary blue */
+}
+.navbar-nav .nav-link {
+    color: #333 !important; /* Dark text for nav links */
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+    color: #2196F3 !important; /* Pullside primary blue on hover */
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1500x800?text=Pullside+Prompt+Manager') no-repeat center center; /* Placeholder image */
+    background-size: cover;
+    min-height: 100vh; /* Full viewport height */
+    padding-top: 56px; /* Adjust for fixed navbar */
+}
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+.hero-section .lead {
+    font-size: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+.hero-section .btn-primary {
+    background-color: #2196F3; /* Pullside primary blue */
+    border-color: #2196F3;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 4px; /* Slightly rounded corners */
+    transition: all 0.15s ease;
+}
+.hero-section .btn-primary:hover {
+    background-color: #1976D2; /* Darker blue on hover */
+    border-color: #1976D2;
+}
+
+/* Section Styling */
+section {
+    padding: 80px 0;
+}
+section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    position: relative;
+    padding-bottom: 15px;
+}
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 60px;
+    background-color: #2196F3; /* Pullside primary blue */
+    border-radius: 2px;
+}
+
+/* Feature Boxes */
+.feature-box, .tech-box {
+    background-color: #fff;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 4px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Ensure equal height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.feature-box:hover, .tech-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+}
+.feature-box i {
+    color: #2196F3; /* Pullside primary blue */
+}
+.feature-box h3, .tech-box h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: #333;
+}
+.tech-box ul {
+    list-style: none;
+    padding-left: 0;
+}
+.tech-box ul li {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* How to Use Section - Cards */
+.card {
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.card-title {
+    font-weight: 600;
+    color: #2196F3; /* Pullside primary blue */
+}
+pre {
+    background-color: #e9ecef;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
+}
+.list-unstyled li i {
+    color: #2196F3; /* Pullside primary blue for icons */
+}
+
+/* Contact Section */
+#contact {
+    background-color: #333 !important; /* Darker background for contact */
+}
+#contact .btn-outline-light {
+    border-color: #2196F3;
+    color: #2196F3;
+    transition: all 0.15s ease;
+}
+#contact .btn-outline-light:hover {
+    background-color: #2196F3;
+    color: #fff;
+    border-color: #2196F3;
+}
+
+/* Footer */
+footer {
+    background-color: #212529 !important; /* Darker footer */
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.9rem;
+}
+footer a {
+    color: #2196F3 !important;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section .lead {
+        font-size: 1.2rem;
+    }
+    section {
+        padding: 60px 0;
+    }
+    section h2 {
+        font-size: 2rem;
+    }
+}
